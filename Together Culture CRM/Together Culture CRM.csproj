@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="HomeDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +66,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HomeDashboard.xaml.cs">
+      <DependentUpon>HomeDashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -86,6 +93,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\font\Helvetica-Bold.ttf" />
+    <Resource Include="Assets\font\Helvetica-BoldOblique.ttf" />
+    <Resource Include="Assets\font\helvetica-compressed-5871d14b6903a.otf" />
+    <Resource Include="Assets\font\helvetica-light-587ebe5a59211.ttf" />
+    <Resource Include="Assets\font\Helvetica-Oblique.ttf" />
+    <Resource Include="Assets\font\helvetica-rounded-bold-5871d05ead8de.otf" />
+    <Resource Include="Assets\font\Helvetica.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +107,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\img\logo-inline-bw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\img\close.png" />
+    <Resource Include="Assets\img\minimise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\img\maximise.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
