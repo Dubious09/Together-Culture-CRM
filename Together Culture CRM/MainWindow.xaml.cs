@@ -31,18 +31,18 @@ namespace Together_Culture_CRM
             DragMove();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-        private void btnMaximise_Click(object sender, RoutedEventArgs e)
+        private void BtnMaximise_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
                 WindowState = WindowState.Normal;
             else WindowState = WindowState.Maximized;
         }
 
-        private void btnMinimise_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimise_Click(object sender, RoutedEventArgs e)
         {
             //change the WindowStyle to single border just before minimising it
             WindowStyle = WindowStyle.SingleBorderWindow;
@@ -51,9 +51,26 @@ namespace Together_Culture_CRM
 
         private void MainWindow_OnActivated(object sender, EventArgs e)
         {
-            //change the WindowStyle back to None, but only after the Window has been activated
+            // Change the WindowStyle back to None, but only after the Window has been activated
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() => WindowStyle = WindowStyle.None));
         }
 
+        private void BtnEvents_Click(object sender, RoutedEventArgs e)
+        {
+            Primary.Content = new EventFeed();
+        }
+
+        private void BtnCalander_Click(object sender, RoutedEventArgs e)
+        {
+            Primary.Content = new Callander();
+        }
+
+        private void BtnDashboard_Click(object sender, RoutedEventArgs e)
+        {
+            Primary.Content = new HomeDashboard();
+            btnEvents.IsChecked = false;
+            btnCalander.IsChecked = false;
+            btnMe.IsChecked = false;
+        }
     }
 }

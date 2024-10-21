@@ -7,7 +7,9 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800"
+        Title="MainWindow"
+        Height="400"
+        Width="800"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -15,11 +17,7 @@
         MinWidth="800">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="colour_1" Color="#FE1E3C"/>
-        <SolidColorBrush x:Key="colour_2" Color="#fffcf9"/>
-        <SolidColorBrush x:Key="colour_3" Color="#426A5A"/>
-        <SolidColorBrush x:Key="colour_4" Color="#6D435A"/>
-        <SolidColorBrush x:Key="colour_5" Color="#352d39"/>
+        
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
@@ -58,73 +56,149 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image Source="assets\img\logo-inline-bw.png"
-                   Grid.ColumnSpan="6"
-                   Stretch="UniformToFill"
-                   Height="30"
-                   Width="250"
-                   Margin="20,5,2,2"
-                   HorizontalAlignment="Left">
-            </Image>
+            <Button x:Name="btnDashboard"
+                    Click="BtnDashboard_Click"
+                    Style="{StaticResource RemoveMouseHover}"
+                    Grid.ColumnSpan="6"
+                    Margin="0,5,2,2"
+                    Background="{StaticResource colour_1}"
+                    BorderThickness="0"
+                    Focusable="False">
+
+                <StackPanel>
+                    <Image Source="assets\img\logo-inline-bw.png"
+                           Height="30"
+                           Width="250"
+                           Stretch="UniformToFill"
+                           HorizontalAlignment="Left">
+                    </Image>
+                </StackPanel>
+            </Button>
+
+            <Grid Grid.Column="5"
+                  Grid.ColumnSpan="8"
+                  Width="Auto"
+                  Margin="18,4,0,0">
+
+                <Grid.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="FontFamily" Value="{StaticResource BoldFont}"/>
+                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <RadioButton Name="btnEvents"
+                             Content="Events"
+                             GroupName="navBar"
+                             Click="BtnEvents_Click"
+                             Grid.Column="0"
+                             Width="85">
+                </RadioButton>
+
+                <RadioButton Name="btnCalander"
+                             Content="Calander"
+                             GroupName="navBar"
+                             Click="BtnCalander_Click"
+                             Grid.Column="1"
+                             Width="114">
+                </RadioButton>
+
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+
+                    <RadioButton Name="btnMe"
+                                 Content="Me"
+                                 GroupName="navBar"
+                                 Width="50">
+                    </RadioButton>
+
+                    <Ellipse Name="HeaderProfileIcon"
+                             Height="24"
+                             Width="24"
+                             Margin="10,0,0,0"
+                             Stroke="Black"
+                             StrokeThickness="1">
+                        
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="assets/img/profile-icon.png"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </StackPanel>
+            </Grid>
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Grid.Column="13"
                         Grid.ColumnSpan="3">
 
-                <Button x:Name="btnMinimise" FlowDirection="LeftToRight"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="10"
-                        Width="30"
-                        Height="30"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        BorderThickness="0"
-                        Background="{StaticResource colour_1}"
-                        Click="btnMinimise_Click">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Width" Value="30"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                    </Style>
 
-                    <StackPanel HorizontalAlignment="Center" Background="{StaticResource colour_1}">
-                        <Image HorizontalAlignment="Center"  Source="assets/img/minimise.png" Height="20" Width="20"/>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+
+                    <Style TargetType="Image">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Height" Value="20"/>
+                        <Setter Property="Width" Value="20"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button x:Name="btnMinimise"
+                        Click="BtnMinimise_Click">
+
+                    <StackPanel>
+                        <Image Source="assets/img/minimise.png"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="btnMaximise" FlowDirection="LeftToRight"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="10"
-                        Width="30"
-                        Height="30"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        BorderThickness="0"
-                        Background="{StaticResource colour_1}"
-                        Click="btnMaximise_Click">
+                <Button x:Name="btnMaximise"
+                        Click="BtnMaximise_Click">
 
-                    <StackPanel HorizontalAlignment="Center" Background="{StaticResource colour_1}">
-                        <Image HorizontalAlignment="Center"  Source="assets/img/maximise.png" Height="20" Width="20"/>
+                    <StackPanel>
+                        <Image Source="assets/img/maximise.png"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="btnClose" FlowDirection="LeftToRight"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="10"
-                        Width="30"
-                        Height="30"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        BorderThickness="0"
-                        Background="{StaticResource colour_1}"
-                        Click="btnClose_Click">
-                    <StackPanel HorizontalAlignment="Center" Background="{StaticResource colour_1}">
-                        <Image HorizontalAlignment="Center" Source="assets/img/close.png" Height="19" Width="19"/>
+                <Button x:Name="btnClose"
+                        Click="BtnClose_Click">
+
+                    <StackPanel>
+                        <Image Source="assets/img/close.png" Height="18" Width="18"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
         </Grid>
 
-        <Frame x:Name="Primary" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"></Frame>
-
+        <Frame x:Name="Primary"
+               Grid.Row="1"
+               Grid.ColumnSpan="2"
+               NavigationUIVisibility="Hidden"
+               Source="HomeDashboard.xaml">
+        </Frame>
     </Grid>
 </Window>
