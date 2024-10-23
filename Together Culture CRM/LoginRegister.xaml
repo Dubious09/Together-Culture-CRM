@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Together_Culture_CRM"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="LoginRegister">
 
     <Page.Resources>
-        
+
     </Page.Resources>
 
     <Grid Background="{StaticResource Colour_2}">
@@ -105,11 +105,89 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Margin="0,50,0,50"
-                        Style="{StaticResource BorderMouseHover}"
+
+                <Viewbox x:Name="vbLogin"
+                         Grid.ColumnSpan="3"
+                         RenderTransformOrigin="0.5,0.5">
+
+                    <Viewbox.Style>
+                        <Style TargetType="{x:Type Viewbox}">
+                            <Setter Property="Opacity" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RightBorder, Path=IsMouseOver}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="100"
+                                                                 BeginTime="0:0:0.11"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="0"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Viewbox.Style>
+
+                    <Viewbox.RenderTransform>
+                        <RotateTransform Angle="270"/>
+                    </Viewbox.RenderTransform>
+
+                    <TextBlock FontFamily="{StaticResource BoldFont}"
+                               Foreground="{StaticResource Colour_3}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center"
+                               Margin="0,0,0,3">
+                        Login
+                    </TextBlock>
+                </Viewbox>
+
+                <Border
+                        Margin="0,50,0,50"
                         Background="{StaticResource Colour_2}"
                         Grid.Column="1">
-                    
+
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource BorderMouseHover}">
+                            <Setter Property="Opacity" Value="100"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RightBorder, Path=IsMouseOver}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="0"
+                                                                 BeginTime="0:0:0"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="100"
+                                                                 BeginTime="0:0:0.11"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="15"
                               Direction ="-90" 
@@ -118,7 +196,7 @@
                               Color ="Gray">
                         </DropShadowEffect>
                     </Border.Effect>
-                    
+
                     <StackPanel Orientation="Vertical"
                                 Margin="20">
 
@@ -130,7 +208,7 @@
                                    FontWeight="Bold"
                                    Padding="10">
                         </TextBlock>
-                        
+
                         <Grid VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -152,6 +230,7 @@
                                      Padding="0,5"
                                      BorderThickness="0,0,0,2"
                                      BorderBrush="{StaticResource Colour_3}"
+                                     Background="{StaticResource Colour_2}"
                                      HorizontalAlignment="Left"
                                      FontFamily="{StaticResource MainFont}"
                                      Width="4000">
@@ -170,13 +249,14 @@
                                          Width="4000"
                                          BorderThickness="0,0,0,2"
                                          BorderBrush="{StaticResource Colour_3}"
+                                         Background="{StaticResource Colour_2}"
                                          HorizontalAlignment="Left"
                                          FontFamily="{StaticResource MainFont}">
                             </PasswordBox>
                         </Grid>
 
                         <TextBlock Text="forgot password?"
-                                   Margin="0,1,0,0"
+                                   Margin="0,3,0,0"
                                    HorizontalAlignment="Right"
                                    FontFamily="{StaticResource MainFont}">
                         </TextBlock>
@@ -188,7 +268,7 @@
                                 FontFamily="{StaticResource BoldFont}"
                                 Margin="0,25"
                                 Height="35">
-                            
+
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">
@@ -196,14 +276,18 @@
                                             <ControlTemplate TargetType="{x:Type Button}">
                                                 <Border x:Name="LoginBorder"
                                                         Background="{TemplateBinding Background}"
-                                                        CornerRadius="16">
+                                                        CornerRadius="{StaticResource Corners}">
                                                     <ContentPresenter HorizontalAlignment="Center" 
                                                                       VerticalAlignment="Center"/>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="Black" TargetName="LoginBorder"  />
-                                                        <Setter Property="TextBlock.Foreground" Value="{StaticResource Colour_3}"  TargetName="LoginBorder" />
+                                                        <Setter Property="Background"
+                                                                Value="Black"
+                                                                TargetName="LoginBorder"  />
+                                                        <Setter Property="TextBlock.Foreground"
+                                                                Value="{StaticResource Colour_2}" 
+                                                                TargetName="LoginBorder" />
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -212,14 +296,18 @@
                                 </Style>
                             </Button.Style>
                         </Button>
+
                         <TextBlock Text="Not a member?"
-                         Margin="0,5"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Center"/>
-                        <TextBlock Text="Sign Up"
-                         Margin="0,10"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Center"/>
+                                   Margin="0,5"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center">
+                        </TextBlock>
+
+                        <TextBlock Text="Sign up using the pannel on the right"
+                                   Margin="0,10"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center">
+                        </TextBlock>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -236,6 +324,283 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
+
+                <Viewbox x:Name="vbRegister"
+                         Grid.ColumnSpan="3"
+                         RenderTransformOrigin="0.5,0.5">
+
+                    <Viewbox.Style>
+                        <Style TargetType="{x:Type Viewbox}">
+                            <Setter Property="Opacity" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LeftBorder, Path=IsMouseOver}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="100"
+                                                                 BeginTime="0:0:0.11"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="0"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Viewbox.Style>
+
+                    <Viewbox.RenderTransform>
+                        <RotateTransform Angle="90"/>
+                    </Viewbox.RenderTransform>
+
+                    <TextBlock FontFamily="{StaticResource BoldFont}"
+                               Foreground="{StaticResource Colour_3}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center"
+                               Margin="0,0,0,3">
+                        Register
+                    </TextBlock>
+                </Viewbox>
+
+                <Border Margin="0,50,0,50"
+                        Background="{StaticResource Colour_2}"
+                        Grid.Column="1">
+
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource BorderMouseHover}">
+                            <Setter Property="Opacity" Value="100"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LeftBorder, Path=IsMouseOver}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="0"
+                                                                 BeginTime="0:0:0"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                 To="100"
+                                                                 BeginTime="0:0:0.11"
+                                                                 Duration="0:0:0"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15"
+                                          Direction ="-90" 
+                                          RenderingBias ="Quality" 
+                                          ShadowDepth ="2" 
+                                          Color ="Gray">
+                        </DropShadowEffect>
+                    </Border.Effect>
+
+                    <StackPanel Orientation="Vertical"
+                                Margin="20">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="53"/>
+                                <RowDefinition Height="165"/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Register" 
+                                       FontSize="28"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       FontFamily="{StaticResource BoldFont}"
+                                       FontWeight="Bold"
+                                       Padding="10">
+                            </TextBlock>
+
+                            <ScrollViewer Grid.Row="1">
+                                <Grid VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="First Name" 
+                                               Grid.Row="0"
+                                               Height="20"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Bottom"
+                                               FontFamily="{StaticResource MainFont}"
+                                               FontSize="12">
+                                    </TextBlock>
+
+                                    <TextBox Grid.Column="0"
+                                             Grid.Row="1"
+                                             Padding="0,5"
+                                             Margin="0,0,5,0"
+                                             BorderThickness="0,0,0,2"
+                                             BorderBrush="{StaticResource Colour_3}"
+                                             Background="{StaticResource Colour_2}"
+                                             HorizontalAlignment="Left"
+                                             FontFamily="{StaticResource MainFont}"
+                                             Width="4000">
+                                    </TextBox>
+
+                                    <TextBlock Text="Last Name" 
+                                               Grid.Row="0"
+                                               Grid.Column="1"
+                                               Margin="5,0,0,0"
+                                               HorizontalAlignment="Left"
+                                               FontFamily="{StaticResource MainFont}"
+                                               FontSize="12">
+                                    </TextBlock>
+
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="1"
+                                             Padding="0,5"
+                                             Margin="5,0,0,0"
+                                             BorderThickness="0,0,0,2"
+                                             BorderBrush="{StaticResource Colour_3}"
+                                             Background="{StaticResource Colour_2}"
+                                             HorizontalAlignment="Left"
+                                             FontFamily="{StaticResource MainFont}"
+                                             Width="4000">
+                                    </TextBox>
+
+                                    <TextBlock Text="Email" 
+                                               Grid.Row="2"
+                                               Height="20"
+                                               Margin="0,10,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Bottom"
+                                               FontFamily="{StaticResource MainFont}"
+                                               FontSize="12">
+                                    </TextBlock>
+
+                                    <TextBox Grid.ColumnSpan="2"
+                                             Grid.Row="3"
+                                             Padding="0,5"
+                                             BorderThickness="0,0,0,2"
+                                             BorderBrush="{StaticResource Colour_3}"
+                                             Background="{StaticResource Colour_2}"
+                                             HorizontalAlignment="Left"
+                                             FontFamily="{StaticResource MainFont}"
+                                             Width="4000">
+                                    </TextBox>
+
+                                    <TextBlock Text="Confirm Email" 
+                                               Grid.Row="4"
+                                               Height="20"
+                                               Margin="0,10,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Bottom"
+                                               FontFamily="{StaticResource MainFont}"
+                                               FontSize="12">
+                                    </TextBlock>
+
+                                    <TextBox Grid.ColumnSpan="2"
+                                             Grid.Row="5"
+                                             Padding="0,5"
+                                             BorderThickness="0,0,0,2"
+                                             BorderBrush="{StaticResource Colour_3}"
+                                             Background="{StaticResource Colour_2}"
+                                             HorizontalAlignment="Left"
+                                             FontFamily="{StaticResource MainFont}"
+                                             Width="4000">
+                                    </TextBox>
+
+                                    <TextBlock Text="Password" 
+                                               Grid.Row="6"
+                                               Height="20"
+                                               Margin="0,10,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Bottom"
+                                               FontFamily="{StaticResource MainFont}"
+                                               FontSize="12">
+                                    </TextBlock>
+
+
+                                </Grid>
+                            </ScrollViewer>
+
+
+                            <Button x:Name="BtnRegister" 
+                                    Content="Register" 
+                                    Foreground="{StaticResource Colour_2}"
+                                    Background="{StaticResource Colour_3}"
+                                    FontFamily="{StaticResource BoldFont}"
+                                    Margin="0,13,0,12"
+                                    Height="35"
+                                    Grid.Row="2">
+
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="RegisterBorder"
+                                                            Background="{TemplateBinding Background}"
+                                                            CornerRadius="{StaticResource Corners}">
+                                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="Black"
+                                                                    TargetName="RegisterBorder"  />
+                                                            <Setter Property="TextBlock.Foreground"
+                                                                    Value="{StaticResource Colour_2}" 
+                                                                    TargetName="RegisterBorder" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+
+                        <TextBlock Text="Already a member?"
+                                   Margin="0,24,0,5"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center">
+                        </TextBlock>
+
+                        <TextBlock Text="Sign in using the pannel on the left"
+                                   Margin="0,10"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center">
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Border>
     </Grid>
