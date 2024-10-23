@@ -8,13 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Callander">
 
-    <Grid Background="{StaticResource colour_2}">
+    <Grid Background="{StaticResource Colour_2}">
 
         <Border BorderThickness="0"
                 Grid.Row="1"
                 Grid.Column="0"
                 CornerRadius="15"
-                Background="{StaticResource colour_5}"
+                Background="{StaticResource Colour_5}"
                 Margin="20">
         </Border>
 

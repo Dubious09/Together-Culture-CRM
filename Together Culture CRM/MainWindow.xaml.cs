@@ -26,15 +26,10 @@ namespace Together_Culture_CRM
             InitializeComponent();
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        private void BtnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+
         private void BtnMaximise_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)

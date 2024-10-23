@@ -8,8 +8,8 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="400"
-        Width="800"
+        Height="500"
+        Width="1000"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -21,10 +21,10 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="0" CornerRadius="15" CaptionHeight="0"></WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="{StaticResource Corners}" CaptionHeight="0"></WindowChrome>
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource colour_2}">
+    <Grid Background="{StaticResource Colour_2}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -36,7 +36,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Background="{StaticResource colour_1}" Grid.ColumnSpan="2">
+        <Grid Background="{StaticResource Colour_1}" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -61,7 +61,7 @@
                     Style="{StaticResource RemoveMouseHover}"
                     Grid.ColumnSpan="6"
                     Margin="0,5,2,2"
-                    Background="{StaticResource colour_1}"
+                    Background="{StaticResource Colour_1}"
                     BorderThickness="0"
                     Focusable="False">
 
@@ -83,7 +83,7 @@
                 <Grid.Resources>
                     <Style TargetType="RadioButton">
                         <Setter Property="FontFamily" Value="{StaticResource BoldFont}"/>
-                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="Background" Value="{StaticResource Colour_1}"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="FontSize" Value="20"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -144,7 +144,7 @@
 
                 <StackPanel.Resources>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="Background" Value="{StaticResource Colour_1}"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -157,7 +157,7 @@
                     </Style>
 
                     <Style TargetType="StackPanel">
-                        <Setter Property="Background" Value="{StaticResource colour_1}"/>
+                        <Setter Property="Background" Value="{StaticResource Colour_1}"/>
                         <Setter Property="HorizontalAlignment" Value="Center"/>
                     </Style>
 
@@ -198,7 +198,7 @@
                Grid.Row="1"
                Grid.ColumnSpan="2"
                NavigationUIVisibility="Hidden"
-               Source="HomeDashboard.xaml">
+               Source="LoginRegister.xaml">
         </Frame>
     </Grid>
 </Window>

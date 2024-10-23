@@ -12,20 +12,18 @@
         
     </Page.Resources>
 
-    <Grid Background="{StaticResource colour_2}">
+    <Grid Background="{StaticResource Colour_2}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border BorderThickness="0"
-        Grid.Row="1"
-        Grid.Column="0"
-        Grid.ColumnSpan="1"
-        CornerRadius="15,15,15,15"
-        Background="{StaticResource colour_5}"
-        Margin="20,20,10,20">
+        <Border Style="{StaticResource BorderMouseHover}"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="1"
+                Margin="20,20,10,20">
         </Border>
 
         <Grid Grid.Row="1"
@@ -44,20 +42,71 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border BorderThickness="0"
-            CornerRadius="15,15,15,15"
-            Background="{StaticResource colour_5}"
-            Margin="10,20,20,0"
-            Grid.RowSpan="3"/>
+            <Border Style="{StaticResource BorderMouseHover}"
+                    Grid.RowSpan="5"
+                    Margin="10,20,20,20">
 
-            <Border BorderThickness="0"
-            CornerRadius="15,15,15,15"
-            Background="{StaticResource colour_5}"
-            Margin="10,20,20,20"
-            Grid.RowSpan="10"
-            Grid.Row="3"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border BorderThickness="0"
+                            CornerRadius="{StaticResource Corners}"
+                            Margin="10,10,5,10"
+                            Grid.ColumnSpan="3"
+                            Background="{StaticResource Colour_4}">
+
+                        <TextBlock FontFamily="{StaticResource MainFont}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20">
+                            Members Area
+                        </TextBlock>
+                    </Border>
+
+                    <Border CornerRadius="{StaticResource Corners}"
+                            Background="{StaticResource Colour_3}"
+                            Grid.Column="3"
+                            Grid.ColumnSpan="2"
+                            Margin="5,10,10,10">
+
+                        <Button x:Name="BtnLoginRegister"
+                                Style="{StaticResource RemoveMouseHover}"
+                                Click="BtnLoginRegister_Click"
+                                Content="Login / Register"
+                                FontFamily="{StaticResource BoldFont}"
+                                FontSize="15">
+                        </Button>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource BorderMouseHover}"
+                    Grid.RowSpan="19"
+                    Grid.Row="4"
+                    Margin="10,20,20,20">
+
+                <Grid>
+                    
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

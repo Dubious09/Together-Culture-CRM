@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Together_Culture_CRM
 {
     /// <summary>
-    /// Interaction logic for HomeDashboard.xaml
+    /// Interaction logic for LoginRegister.xaml
     /// </summary>
-    public partial class HomeDashboard : Page
+    public partial class LoginRegister : Page
     {
-        public HomeDashboard()
+        public LoginRegister()
         {
             InitializeComponent();
-        }
-
-        private void BtnLoginRegister_Click(object sender, RoutedEventArgs e)
-        {
-            Content = new LoginRegister();
         }
     }
 }

@@ -3,34 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Together_Culture_CRM"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
-        <SolidColorBrush x:Key="colour_1" Color="#FE1E3C"/>
-        <SolidColorBrush x:Key="colour_2" Color="#fffcf9"/>
-        <SolidColorBrush x:Key="colour_3" Color="#426A5A"/>
-        <SolidColorBrush x:Key="colour_4" Color="#6D435A"/>
-        <SolidColorBrush x:Key="colour_5" Color="#352d39"/>
+        <SolidColorBrush x:Key="Colour_1" Color="#FE1E3C"/>
+        <SolidColorBrush x:Key="Colour_2" Color="#fffcf9"/>
+        <SolidColorBrush x:Key="Colour_3" Color="#426A5A"/>
+        <SolidColorBrush x:Key="Colour_4" Color="#6D435A"/>
+        <SolidColorBrush x:Key="Colour_5" Color="#352d39"/>
+
+        <CornerRadius x:Key="Corners">15</CornerRadius>
 
         <FontFamily x:Key="MainFont">assets/font/#Helvetica</FontFamily>
         <FontFamily x:Key="BoldFont">assets/font/#Helvetica Bold</FontFamily>
 
         <Style x:Key="RemoveMouseHover" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Margin" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}" >
+                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="{StaticResource Corners}" >
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,2"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Colour_2}"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="0,2,0,2"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="BorderMouseHover" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Colour_5}"/>
+            <Setter Property="CornerRadius" Value="{StaticResource Corners}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" To="10,10,10,10" Duration="00:00:00.1">
+                                </ThicknessAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="10,10,10,10" Duration="00:00:00.1">
+                                </ThicknessAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Application.Resources>
 </Application>
