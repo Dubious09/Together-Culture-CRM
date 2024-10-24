@@ -20,14 +20,24 @@ namespace Together_Culture_CRM
     /// </summary>
     public partial class HomeDashboard : Page
     {
+        public MainWindow _mainWindow;
+
         public HomeDashboard()
         {
             InitializeComponent();
+            _mainWindow = Application.Current.MainWindow as MainWindow;
+
+            if (_mainWindow == null)
+            {
+                // Handle the case where MainWindow is not available
+                MessageBox.Show("MainWindow is not available.");
+            }
         }
 
         private void BtnLoginRegister_Click(object sender, RoutedEventArgs e)
         {
-            Content = new LoginRegister();
+            Frame Primary = _mainWindow.GetPrimaryFrame();
+            Primary.Content = new LoginRegister();
         }
     }
 }

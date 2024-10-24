@@ -198,7 +198,7 @@
                Grid.Row="1"
                Grid.ColumnSpan="2"
                NavigationUIVisibility="Hidden"
-               Source="LoginRegister.xaml">
+               Source="AdminPanel.xaml">
         </Frame>
     </Grid>
 </Window>

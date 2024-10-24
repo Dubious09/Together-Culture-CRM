@@ -26,6 +26,8 @@ namespace Together_Culture_CRM
             InitializeComponent();
         }
 
+        public Frame GetPrimaryFrame() => Primary;
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
 
         private void BtnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
@@ -50,15 +52,9 @@ namespace Together_Culture_CRM
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() => WindowStyle = WindowStyle.None));
         }
 
-        private void BtnEvents_Click(object sender, RoutedEventArgs e)
-        {
-            Primary.Content = new EventFeed();
-        }
+        private void BtnEvents_Click(object sender, RoutedEventArgs e) => Primary.Content = new EventFeed();
 
-        private void BtnCalander_Click(object sender, RoutedEventArgs e)
-        {
-            Primary.Content = new Callander();
-        }
+        private void BtnCalander_Click(object sender, RoutedEventArgs e) => Primary.Content = new Callander();
 
         private void BtnDashboard_Click(object sender, RoutedEventArgs e)
         {
