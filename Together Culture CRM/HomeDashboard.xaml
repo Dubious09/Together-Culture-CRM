@@ -104,7 +104,111 @@
                     Margin="10,20,20,20">
 
                 <Grid>
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Style="{StaticResource BorderMouseHover}">
+                            <Border.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="assets/img/tc-photo-1.jpg"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Border Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Background="{StaticResource Colour_2}"
+                                Style="{StaticResource BorderMouseHover}"
+                                Grid.Column="1">
+                            <ScrollViewer>
+                                <TextBlock Margin="8"
+                                       TextWrapping="WrapWithOverflow"
+                                       FontFamily="{StaticResource BoldFont}"
+                                       TextAlignment="Center">
+                                    By 2033, we see Together Culture as having a monumental social impact. We hold a shared goal of creating a thriving community that will eventually have 1000s of people feeling empowered by each other to build and share a more equitable and ecological Cambridge.
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    We will have a culture of active citizens making a contribution that matters, with the power to redistribute resources and shape a creative economy.
+                                </TextBlock>
+                            </ScrollViewer>
+                        </Border>
+                        
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="1"
+                                Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Style="{StaticResource BorderMouseHover}">
+                            <Border.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="assets/img/tc-photo-2.jpg"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Border Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Background="{StaticResource Colour_2}"
+                                Style="{StaticResource BorderMouseHover}">
+                            <ScrollViewer>
+                                <TextBlock Margin="8"
+                                           TextWrapping="WrapWithOverflow"
+                                           FontFamily="{StaticResource BoldFont}"
+                                           TextAlignment="Center">
+                                    Join our burgeoning community of open-minded and curious people and make 5 Ftizroy Street your home away from home.
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    Membership provides free or discounted tickets to all events, collaborative and creative skills development workshops, participation in the annual  Citizens’ Studio, and a voice in decision about new social enterprises developed in Together Culture’s incubator. Plus, you’ll have a City Centre base that you can call home, have a (free) coffee with your friends, host your next bookclub, do some work, be inspired, or just be.
+                                </TextBlock>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Style="{StaticResource BorderMouseHover}">
+                            <Border.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="assets/img/tc-photo-3.jpg"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Border Margin="14"
+                                CornerRadius="{StaticResource Corners}"
+                                Background="{StaticResource Colour_2}"
+                                Style="{StaticResource BorderMouseHover}"
+                                Grid.Column="1">
+                            <ScrollViewer>
+                                <TextBlock Margin="8"
+                                           TextWrapping="WrapWithOverflow"
+                                           FontFamily="{StaticResource BoldFont}"
+                                           TextAlignment="Center">
+                                    Find a supportive and collaborative network of like-minded change makers.
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    Enjoy all the perks of Community Membership, plus 24/7 access to Together Culture Fitzroy including a dedicated workspace, storage space, and cohort of Workspace Members with which to build collaborative relationships.
+                                </TextBlock>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

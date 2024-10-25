@@ -24,5 +24,17 @@ namespace Together_Culture_CRM
         {
             InitializeComponent();
         }
+
+        private void BtnGraphView_Click(object sender, RoutedEventArgs e) => AdminFrame.Content = new AdminGraphs();
+
+        private void BtnTableView_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Content = new AdminTable();
+        }
+
+        private void BtnNewEvent_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Content = new CreateEvent();
+        }
     }
 }
