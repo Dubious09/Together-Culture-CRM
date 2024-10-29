@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,30 @@ namespace Together_Culture_CRM
         public CreateEvent()
         {
             InitializeComponent();
+        }
+
+        string path;
+        string fileName;
+
+        private void BtnCreateEventOpenFileDialog_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+
+            bool? success = openFileDialog.ShowDialog();
+            if (success == true)
+            {
+                path = openFileDialog.FileName;
+                fileName = openFileDialog.SafeFileName;
+
+                TbCreateEventFileDialog.Text = fileName;
+                ImgEventPreview.ImageSource = new BitmapImage(new Uri(path));
+            }
+            else
+            {
+                // No image selected
+                // MessageBox.Show("No image selected");
+            }
         }
     }
 }

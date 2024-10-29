@@ -262,39 +262,9 @@
                         </TextBlock>
 
                         <Button x:Name="LoginBtn" 
-                                Content="Login" 
-                                Foreground="{StaticResource Colour_2}"
-                                Background="{StaticResource Colour_3}"
-                                FontFamily="{StaticResource BoldFont}"
+                                Content="Login"
                                 Margin="0,25"
                                 Height="35">
-
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border x:Name="LoginBorder"
-                                                        Background="{TemplateBinding Background}"
-                                                        CornerRadius="{StaticResource Corners}">
-                                                    <ContentPresenter HorizontalAlignment="Center" 
-                                                                      VerticalAlignment="Center"/>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background"
-                                                                Value="Black"
-                                                                TargetName="LoginBorder"  />
-                                                        <Setter Property="TextBlock.Foreground"
-                                                                Value="{StaticResource Colour_2}" 
-                                                                TargetName="LoginBorder" />
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Button.Style>
                         </Button>
 
                         <TextBlock Text="Not a member?"
@@ -552,39 +522,9 @@
 
                             <Button x:Name="BtnRegister" 
                                     Content="Register" 
-                                    Foreground="{StaticResource Colour_2}"
-                                    Background="{StaticResource Colour_3}"
-                                    FontFamily="{StaticResource BoldFont}"
                                     Margin="0,13,0,12"
                                     Height="35"
                                     Grid.Row="2">
-
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border x:Name="RegisterBorder"
-                                                            Background="{TemplateBinding Background}"
-                                                            CornerRadius="{StaticResource Corners}">
-                                                        <ContentPresenter HorizontalAlignment="Center" 
-                                                                          VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background"
-                                                                    Value="Black"
-                                                                    TargetName="RegisterBorder"  />
-                                                            <Setter Property="TextBlock.Foreground"
-                                                                    Value="{StaticResource Colour_2}" 
-                                                                    TargetName="RegisterBorder" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
                             </Button>
                         </Grid>
 

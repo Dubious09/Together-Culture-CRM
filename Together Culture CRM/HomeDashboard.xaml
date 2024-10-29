@@ -73,12 +73,15 @@
                             Grid.ColumnSpan="3"
                             Background="{StaticResource Colour_4}">
 
-                        <TextBlock FontFamily="{StaticResource MainFont}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="20">
-                            Members Area
-                        </TextBlock>
+                        <Viewbox Margin="5"
+                                 MaxWidth="300">
+                            <TextBlock FontFamily="{StaticResource BoldFont}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20">
+                                Members Area
+                            </TextBlock>
+                        </Viewbox>
                     </Border>
 
                     <Border CornerRadius="{StaticResource Corners}"
@@ -100,8 +103,8 @@
 
             <Border Style="{StaticResource BorderMouseHover}"
                     Grid.RowSpan="19"
-                    Grid.Row="4"
-                    Margin="10,20,20,20">
+                    Grid.Row="5"
+                    Margin="10,15,20,20">
 
                 <Grid>
                     <Grid.RowDefinitions>

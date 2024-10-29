@@ -1,0 +1,3 @@
+- Add constants class for the C# code
+- Ensure all SQL queries are stored in the constants class
+- Link the database to the C# code and finish 'user login'
