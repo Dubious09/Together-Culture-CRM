@@ -193,30 +193,6 @@
         </Style>
 
         <!-- Styling for TextBox such that the Border colour is changed when IsMouseOver == True -->
-        <Style x:Name="TextBoxHoverStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="{StaticResource Colour_2}"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="LoginBorder"
-                                BorderBrush="{TemplateBinding Background}"
-                                BorderThickness="0,0,0,2"
-                                CornerRadius="{StaticResource Corners}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush"
-                                Value="Black"
-                                TargetName="LoginBorder"  />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </Application.Resources>
 </Application>

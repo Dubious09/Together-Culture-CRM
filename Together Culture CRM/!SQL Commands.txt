@@ -1,0 +1,203 @@
+Creating a database for the application - MySQL
+
+CREATE TABLE `Users` (
+  `User_ID` int,
+  `Password` varchar(250),
+  `UserType` varchar (100),
+  `CreateAt` datetime,
+  `IsActive` bool,
+  `FirstName` varchar(50),
+  `LastName` varchar(50),
+  `MailingList` bool,
+  `Image` MEDIUMBLOB,
+  PRIMARY KEY (`User_ID`)
+);
+
+CREATE TABLE `SiteAccess` (
+  `Membership_ID` int,
+  `User_ID` int,
+  `CheckedIn` datetime,
+  `CheckedOut` datetime,
+  `SiteVisited` varchar(100),
+  PRIMARY KEY (`Membership_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Email` (
+  `Email_ID` int,
+  `User_ID` int,
+  `Name` varchar(100),
+  `Email` varchar(320),
+  PRIMARY KEY (`Email_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Events` (
+  `Event_ID` int,
+  `EventName` varchar(100),
+  `Description` varchar(3000),
+  `Date` datetime,
+  `Price` int,
+  `Image` MEDIUMBLOB,
+  PRIMARY KEY (`Event_ID`)
+);
+
+CREATE TABLE `Address` (
+  `Address_ID` int,
+  `User_ID` int,
+  `Event_ID` int,
+  `Name` varchar(100),
+  `Line_1` varchar(100),
+  `Line_2` varchar(100),
+  `County` varchar(100),
+  `Postcode` varchar(7),
+  PRIMARY KEY (`Address_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`)
+);
+
+CREATE TABLE `Orders` (
+  `Order_ID` int,
+  `Event_ID` int,
+  `User_ID` int,
+  `DateTime` int,
+  `Quantity` int,
+  `Currency` varchar(4),
+  `DiscountPerc` int,
+  PRIMARY KEY (`Order_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Tags` (
+  `Tag_ID` int,
+  `TagName` varchar(50),
+  PRIMARY KEY (`Tag_ID`)
+);
+
+CREATE TABLE `PhoneNumber` (
+  `PhoneNumber_ID` int,
+  `User_ID` int,
+  `Name` varchar(100),
+  `PhoneNumber` int,
+  PRIMARY KEY (`PhoneNumber_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `TagsUserMapping` (
+  `Tag_ID` int,
+  `User_ID` int,
+  PRIMARY KEY (`Tag_ID`, `User_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
+  FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
+);
+
+CREATE TABLE `TagsEventMapping` (
+  `Tag_ID` int,
+  `Event_ID` int,
+  PRIMARY KEY (`Tag_ID`, `Event_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
+  FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
+);
+
+Version 2
+
+CREATE TABLE `Users` (
+  `User_ID` int AUTO_INCREMENT,
+  `Password` varchar(250),
+  `UserType` varchar (100),
+  `CreateAt` datetime,
+  `IsActive` bool,
+  `FirstName` varchar(50),
+  `LastName` varchar(50),
+  `MailingList` bool,
+  `Image` MEDIUMBLOB,
+  PRIMARY KEY (`User_ID`)
+);
+
+CREATE TABLE `SiteAccess` (
+  `Membership_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `CheckedIn` datetime,
+  `CheckedOut` datetime,
+  `SiteVisited` varchar(100),
+  PRIMARY KEY (`Membership_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Email` (
+  `Email_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `Name` varchar(100),
+  `Email` varchar(320),
+  PRIMARY KEY (`Email_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Events` (
+  `Event_ID` int AUTO_INCREMENT,
+  `EventName` varchar(100),
+  `Description` varchar(3000),
+  `Date` datetime,
+  `Price` int,
+  `Image` MEDIUMBLOB,
+  PRIMARY KEY (`Event_ID`)
+);
+
+CREATE TABLE `Address` (
+  `Address_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `Event_ID` int,
+  `Name` varchar(100),
+  `Line_1` varchar(100),
+  `Line_2` varchar(100),
+  `County` varchar(100),
+  `Postcode` varchar(7),
+  PRIMARY KEY (`Address_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`)
+);
+
+CREATE TABLE `Orders` (
+  `Order_ID` int AUTO_INCREMENT,
+  `Event_ID` int,
+  `User_ID` int,
+  `DateTime` int,
+  `Quantity` int,
+  `Currency` varchar(4),
+  `DiscountPerc` int,
+  PRIMARY KEY (`Order_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Tags` (
+  `Tag_ID` int AUTO_INCREMENT,
+  `TagName` varchar(50),
+  PRIMARY KEY (`Tag_ID`)
+);
+
+CREATE TABLE `PhoneNumber` (
+  `PhoneNumber_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `Name` varchar(100),
+  `PhoneNumber` int,
+  PRIMARY KEY (`PhoneNumber_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `TagsUserMapping` (
+  `Tag_ID` int,
+  `User_ID` int,
+  PRIMARY KEY (`Tag_ID`, `User_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
+  FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
+);
+
+CREATE TABLE `TagsEventMapping` (
+  `Tag_ID` int,
+  `Event_ID` int,
+  PRIMARY KEY (`Tag_ID`, `Event_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
+  FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
+);

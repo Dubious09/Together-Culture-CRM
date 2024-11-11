@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace Together_Culture_CRM
 {
@@ -21,9 +23,36 @@ namespace Together_Culture_CRM
     /// </summary>
     public partial class MainWindow : Window
     {
+        MySqlConnection connection;
+
         public MainWindow()
         {
             InitializeComponent();
+            mysqlConnection();
+        }
+
+        public void mysqlConnection()
+        {
+            string connStr = $"server={Constants.Server};user={Constants.Username};database={Constants.Database};password={Constants.Password}";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                connection = conn;
+                // Perform database operations
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            conn.Close();
+            Console.WriteLine("Done.");
+        }
+
+        public MySqlConnection GetDatabaseConnection()
+        {
+            return new MySqlConnection(connection.ConnectionString);
         }
 
         public Frame GetPrimaryFrame() => Primary;
