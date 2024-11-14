@@ -120,7 +120,8 @@
                     <RadioButton Name="btnMe"
                                  Content="Me"
                                  GroupName="navBar"
-                                 Width="50">
+                                 Width="50"
+                                 Click="btnMe_Click">
                     </RadioButton>
 
                     <Ellipse Name="HeaderProfileIcon"

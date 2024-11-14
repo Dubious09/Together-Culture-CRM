@@ -24,12 +24,17 @@ namespace Together_Culture_CRM
     public partial class MainWindow : Window
     {
         MySqlConnection connection;
+        int loggedInUserID = 0;
 
         public MainWindow()
         {
             InitializeComponent();
             mysqlConnection();
         }
+
+        public void SetLoggedInUserID(int id) => loggedInUserID = id;
+
+        public int GetUserID() => loggedInUserID;
 
         public void mysqlConnection()
         {
@@ -38,7 +43,7 @@ namespace Together_Culture_CRM
             try
             {
                 Console.WriteLine("Connecting to MySQL...");
-                conn.Open();
+                //conn.Open();
                 connection = conn;
                 // Perform database operations
             }
@@ -46,7 +51,7 @@ namespace Together_Culture_CRM
             {
                 Console.WriteLine(ex.ToString());
             }
-            conn.Close();
+            //conn.Close();
             Console.WriteLine("Done.");
         }
 
@@ -91,6 +96,18 @@ namespace Together_Culture_CRM
             btnEvents.IsChecked = false;
             btnCalander.IsChecked = false;
             btnMe.IsChecked = false;
+        }
+
+        private void btnMe_Click(object sender, RoutedEventArgs e)
+        {
+            if (loggedInUserID == 0)
+            {
+                Primary.Content = new LoginRegister();
+            }
+            else
+            {
+                Primary.Content = new ProfileEditor();
+            }
         }
     }
 }

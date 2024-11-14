@@ -16,7 +16,21 @@ namespace Together_Culture_CRM
 
         // SQL queries
         internal static string InsertNewProfile = "INSERT INTO users" +
-                                                  "(Password, CreatedAt, IsActive, FirstName, LastName, MailingList)" +
-                                                  "VALUES (@Password , NOW(), 1, @FirstName, @LastName, 1) SslMode=None";
+                                                  "(Password, UserType, CreateAt, IsActive, FirstName, LastName, MailingList)" +
+                                                  "VALUES (@Password, 'NonMember', NOW(), 1, @FirstName, @LastName, 1)";
+
+        internal static string InsertNewEmail = "INSERT INTO email" +
+                                                "(User_ID, Name, Email)" +
+                                                "VALUES (LAST_INSERT_ID(), 'Account', @Email)";
+
+        internal static string CheckIfUniqueEmail = "SELECT COUNT(1) FROM email WHERE Email = @Email";
+
+        internal static string GetLastID = "SELECT LAST_INSERT_ID()";
+
+        internal static string GetUsersNames = "SELECT FirstName, LastName FROM users WHERE User_ID = @ID";
+
+        internal static string CheckLoginDetials = "SELECT User_ID FROM email " +
+                                                   "WHERE email.Email = @Email AND User_ID IN " +
+                                                   "(SELECT User_ID FROM users WHERE Password = @Password) ";
     }
 }

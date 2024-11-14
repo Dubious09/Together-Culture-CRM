@@ -100,7 +100,7 @@ CREATE TABLE `TagsEventMapping` (
   FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
 );
 
-Version 2
+Version 2 --------------------------------------------------------------------------------------------------
 
 CREATE TABLE `Users` (
   `User_ID` int AUTO_INCREMENT,
@@ -131,7 +131,7 @@ CREATE TABLE `Email` (
   `Name` varchar(100),
   `Email` varchar(320),
   PRIMARY KEY (`Email_ID`),
-  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `Events` (
@@ -155,7 +155,7 @@ CREATE TABLE `Address` (
   `Postcode` varchar(7),
   PRIMARY KEY (`Address_ID`),
   FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
-  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`)
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `Orders` (
@@ -183,7 +183,7 @@ CREATE TABLE `PhoneNumber` (
   `Name` varchar(100),
   `PhoneNumber` int,
   PRIMARY KEY (`PhoneNumber_ID`),
-  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `TagsUserMapping` (
