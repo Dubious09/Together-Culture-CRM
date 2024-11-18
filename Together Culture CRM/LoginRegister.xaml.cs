@@ -146,6 +146,7 @@ namespace Together_Culture_CRM
         // This method is called when the Login button is clicked
         // It will attempt to access to the pre-establish connection to the data base before it tries to login the user
         // The method will perform checks for the user input and then execute the SQL command to check the login details
+        /*
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             if (_mainWindow != null)
@@ -168,8 +169,11 @@ namespace Together_Culture_CRM
                         cmdLogin.Parameters.AddWithValue("@Email", TbEmail.Text);
                         cmdLogin.Parameters.AddWithValue("@Password", PwField.Password);
 
+                        Console.WriteLine("Command: " + cmdLogin.CommandText);
+
                         // Execute the SQL command and check if the user exists/credentials are correct
                         MySqlDataReader reader = cmdLogin.ExecuteReader();
+                        //conn.Close();
                         if (reader.HasRows)
                         {
                             while (reader.Read())
@@ -198,6 +202,148 @@ namespace Together_Culture_CRM
                     }
                 }
 
+            }
+            else
+            {
+                MessageBox.Show("MainWindow is not available.");
+            }
+        }
+    }
+}
+        */
+        /*
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindow != null)
+            {
+                if (string.IsNullOrEmpty(TbEmail.Text) || string.IsNullOrEmpty(PwField.Password))
+                {
+                    // One or more fields are empty
+                    LoginTopText.Foreground = Brushes.Red;
+                    LoginTopText.Text = "Please fill in all fields";
+                    return;
+                }
+
+                var sqlCommands = new SqlCommands();
+                string loginQuery = Constants.CheckLoginDetials;
+                var loginParams = new List<Tuple<string, object>>
+                {
+                    new Tuple<string, object>("@Email", TbEmail.Text),
+                    new Tuple<string, object>("@Password", PwField.Password)
+                };
+                
+                MySqlConnection conn = _mainWindow.GetDatabaseConnection();
+                try
+                {
+                    conn.Open();
+                    using (MySqlDataReader reader = (MySqlDataReader)sqlCommands.ExecuteSqlCommand(
+                        conn, _mainWindow, loginQuery, loginParams, CommandType.ExecuteReader))
+                    {
+                        Console.WriteLine("Null = " + reader != null);
+                        Console.WriteLine("Has rows = " + reader.HasRows);
+                        if (reader != null && reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("Returned ID: " + reader.GetInt32(0));
+                                _mainWindow.SetLoggedInUserID(reader.GetInt32(0));
+                            }
+
+                            // Navigate to the HomeDashboard
+                            Frame Primary = _mainWindow.GetPrimaryFrame();
+                            Primary.Content = new HomeDashboard();
+                        }
+                        else
+                        {
+                            // Invalid email or password
+                            LoginTopText.Foreground = Brushes.Red;
+                            LoginTopText.Text = "Invalid email or password";
+                            PwField.Clear();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("MainWindow is not available.");
+            }
+        }
+
+    }
+}
+    */
+        // This method is called when the Login button is clicked
+        // It will attempt to access to the pre-establish connection to the data base before it tries to login the user
+        // The method will perform checks for the user input and then execute the SQL command to check the login details
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindow != null)
+            {
+                if (string.IsNullOrEmpty(TbEmail.Text) || string.IsNullOrEmpty(PwField.Password))
+                {
+                    // One or more fields are empty
+                    LoginTopText.Foreground = Brushes.Red;
+                    LoginTopText.Text = "Please fill in all fields";
+                    return;
+                }
+
+                // Create a new SqlCommands object to execute the SQL command
+                var sqlCommands = new SqlCommands();
+                string loginQuery = Constants.CheckLoginDetials;
+                var loginParams = new List<Tuple<string, object>> // Add parameters to the SQL command
+                {
+                    new Tuple<string, object>("@Email", TbEmail.Text),
+                    new Tuple<string, object>("@Password", PwField.Password)
+                };
+
+                MySqlConnection conn = _mainWindow.GetDatabaseConnection();
+                try
+                {
+                    conn.Open();
+                    using (MySqlDataReader reader = (MySqlDataReader)sqlCommands.ExecuteSqlCommand(
+                        conn, loginQuery, loginParams, CommandType.ExecuteReader))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("Returned ID: " + reader.GetInt32(0));
+                                _mainWindow.SetLoggedInUserID(reader.GetInt32(0));
+                            }
+
+                            // Navigate to the HomeDashboard
+                            Frame Primary = _mainWindow.GetPrimaryFrame();
+                            Primary.Content = new HomeDashboard();
+                        }
+                        else
+                        {
+                            // Invalid email or password
+                            LoginTopText.Foreground = Brushes.Red;
+                            LoginTopText.Text = "Invalid email or password";
+                            PwField.Clear();
+                        }
+                    }
+                }
+                catch (Exception ex) // Catch any SQL exceptions and display an error message
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             else
             {
