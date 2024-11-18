@@ -47,7 +47,7 @@
                 <!-- This group of blocks is the user profile preview that is shown on the left -->
                 <Border Grid.ColumnSpan="3"
                         Grid.RowSpan="12"
-                        Margin="15,15,10,15"
+                        Margin="15"
                         CornerRadius="{StaticResource Corners}"
                         Style="{StaticResource BorderMouseHover}">
 
@@ -130,7 +130,7 @@
                 <Border Grid.Column="3"
                         Grid.ColumnSpan="7"
                         Grid.RowSpan="3"
-                        Margin="10,15,15,15"
+                        Margin="15"
                         CornerRadius="{StaticResource Corners}"
                         Style="{StaticResource BorderMouseHover}">
 
@@ -166,7 +166,6 @@
                                  HorizontalAlignment="Left"
                                  FontFamily="{StaticResource MainFont}"
                                  Foreground="{StaticResource Colour_2}"
-                                 Height="22"
                                  Width="4000">
                         </TextBox>
 
@@ -188,7 +187,6 @@
                                  BorderBrush="{StaticResource Colour_2}"
                                  Background="{StaticResource Colour_5}"
                                  HorizontalAlignment="Left"
-                                 Height="22"
                                  FontFamily="{StaticResource MainFont}"
                                  Foreground="{StaticResource Colour_2}"
                                  Width="4000">
@@ -200,7 +198,7 @@
                         Grid.ColumnSpan="7"
                         Grid.Row="3"
                         Grid.RowSpan="6"
-                        Margin="10,15,15,15"
+                        Margin="15"
                         CornerRadius="{StaticResource Corners}"
                         Style="{StaticResource BorderMouseHover}">
 
@@ -217,7 +215,7 @@
                         Grid.ColumnSpan="7"
                         Grid.Row="9"
                         Grid.RowSpan="3"
-                        Margin="10,15,15,15"
+                        Margin="15"
                         CornerRadius="{StaticResource Corners}"
                         Style="{StaticResource BorderMouseHover}">
 

@@ -1,56 +1,43 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Together_Culture_CRM
 {
     internal class SqlCommands
     {
-        // Execute a SQL command with parameters and return the result        
-        public object ExecuteSqlCommand(MySqlConnection conn, string query, List<Tuple<string, object>> parameters, CommandType commandType)
+        private MySqlCommand AddParameters(MainWindow mainWindow, string query, List<Tuple<string, object>> parameters)
         {
-            try
+            MySqlCommand cmdOut;
+
+            using (MySqlConnection conn = mainWindow.GetDatabaseConnection())
             {
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = query;
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
 
-                // Add parameters to the command
-                foreach (var param in parameters)
-                {
-                    cmd.Parameters.AddWithValue(param.Item1, param.Item2);
-                }
+                    // Adding parameters to the SQL command
+                    foreach (var param in parameters)
+                    {
+                        cmd.Parameters.AddWithValue(param.Item1, param.Item2);
+                    }
 
-                // Execute the command based on the command type
-                if (commandType == CommandType.ExecuteReader)
-                {
-                    return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    cmdOut = cmd;
                 }
-                else if (commandType == CommandType.ExecuteScalar)
+                catch (Exception ex)
                 {
-                    return cmd.ExecuteScalar();
-                }
-                else
-                {
-                    cmd.ExecuteNonQuery();
-                    return null;
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                    cmdOut = null;
                 }
             }
-            catch (Exception ex) // Catch any SQL exceptions and display an error message
-            {
-                MessageBox.Show("An error occurred: " + ex.Message);
-                Console.WriteLine("Error: " + ex.Message);
-                return null;
-            }
+
+            return cmdOut;
         }
-    }
-
-    // Enum for different types of SQL commands
-    public enum CommandType
-    {
-        ExecuteNonQuery,
-        ExecuteScalar,
-        ExecuteReader
     }
 }
