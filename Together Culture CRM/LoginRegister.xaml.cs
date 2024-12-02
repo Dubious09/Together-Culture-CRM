@@ -49,11 +49,11 @@ namespace Together_Culture_CRM
                     string.IsNullOrEmpty(TbLastName.Text) ||
                     string.IsNullOrEmpty(PbNewPassword.Password) ||
                     string.IsNullOrEmpty(PbConfirmNewPassword.Password) ||
-                    string.IsNullOrEmpty(TbNewEmail.Text) || 
+                    string.IsNullOrEmpty(TbNewEmail.Text) ||
                     string.IsNullOrEmpty(TbConfirmNewEmail.Text))
                 {
                     // One or more fields are empty
-                    RegisterTopText.Foreground= Brushes.Red;
+                    RegisterTopText.Foreground = Brushes.Red;
                     RegisterTopText.Text = "Please fill in all fields";
                     return;
                 }
@@ -74,67 +74,65 @@ namespace Together_Culture_CRM
                     return;
                 }
 
-                // Check if the email is already in use
-                using (MySqlConnection conn = _mainWindow.GetDatabaseConnection())
-                {
-                    try
-                    {
-                        conn.Open();
-                        MySqlCommand cmdUniqueEmail = conn.CreateCommand();
-                        cmdUniqueEmail.CommandText = Constants.CheckIfUniqueEmail;
-                        cmdUniqueEmail.Parameters.AddWithValue("@Email", TbNewEmail.Text);
+                var sqlCommands = new SqlCommands();
+                MySqlConnection conn = _mainWindow.GetDatabaseConnection();
 
-                        int count = Convert.ToInt32(cmdUniqueEmail.ExecuteScalar());
-                        if (count > 0)
-                        {
-                            RegisterTopText.Foreground = Brushes.Red;
-                            RegisterTopText.Text = "Email already in use";
-                            conn.Close();
-                            return;
-                        }
-                        conn.Close();
-                    }
-                    catch (Exception ex)
+                try
+                {
+                    conn.Open();
+
+                    // Check if the email is already in use
+                    string checkEmailQuery = Constants.CheckIfUniqueEmail;
+                    var checkEmailParams = new List<Tuple<string, object>>
                     {
-                        MessageBox.Show("An error occurred: " + ex.Message);
+                        new Tuple<string, object>("@Email", TbNewEmail.Text)
+                    };
+
+                    int count = Convert.ToInt32(sqlCommands.ExecuteSqlCommand(conn, checkEmailQuery, checkEmailParams, CommandType.ExecuteScalar));
+                    if (count > 0)
+                    {
+                        RegisterTopText.Foreground = Brushes.Red;
+                        RegisterTopText.Text = "Email already in use";
+                        return;
                     }
+
+                    // Insert the new user into the database
+                    string insertUserQuery = Constants.InsertNewProfile;
+                    var insertUserParams = new List<Tuple<string, object>>
+                    {
+                        new Tuple<string, object>("@FirstName", TbFirstName.Text),
+                        new Tuple<string, object>("@LastName", TbLastName.Text),
+                        new Tuple<string, object>("@Password", PbNewPassword.Password)
+                    };
+
+                    sqlCommands.ExecuteSqlCommand(conn, insertUserQuery, insertUserParams, CommandType.ExecuteNonQuery);
+
+                    // Get the last inserted ID
+                    string getLastIdQuery = Constants.GetLastID;
+                    int userId = Convert.ToInt32(sqlCommands.ExecuteSqlCommand(conn, getLastIdQuery, null, CommandType.ExecuteScalar));
+                    _mainWindow.SetLoggedInUserID(userId);
+
+                    // Insert the new email into the database
+                    string insertEmailQuery = Constants.InsertNewEmail;
+                    var insertEmailParams = new List<Tuple<string, object>>
+                    {
+                        new Tuple<string, object>("@Email", TbNewEmail.Text)
+                    };
+
+                    sqlCommands.ExecuteSqlCommand(conn, insertEmailQuery, insertEmailParams, CommandType.ExecuteNonQuery);
+
+                    // Navigate to the Confirmation screen
+                    Frame Primary = _mainWindow.GetPrimaryFrame();
+                    Primary.Content = new PostRegistration();
                 }
-
-                // Insert the new user into the database
-                using (MySqlConnection conn = _mainWindow.GetDatabaseConnection())
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        conn.Open();
-                        MySqlCommand cmdUserTable = conn.CreateCommand();
-                        // Adding parameters to the SQL command
-                        cmdUserTable.CommandText = Constants.InsertNewProfile;
-                        cmdUserTable.Parameters.AddWithValue("@FirstName", TbFirstName.Text);
-                        cmdUserTable.Parameters.AddWithValue("@LastName", TbLastName.Text);
-                        cmdUserTable.Parameters.AddWithValue("@Password", PbNewPassword.Password);
-                        
-                        cmdUserTable.ExecuteNonQuery();
-
-                        MySqlCommand cmdGetID = conn.CreateCommand();
-                        cmdGetID.CommandText = Constants.GetLastID;
-
-                        _mainWindow.SetLoggedInUserID(Convert.ToInt32(cmdGetID.ExecuteScalar()));
-
-                        MySqlCommand cmdEmailTable = conn.CreateCommand();
-                        cmdEmailTable.CommandText = Constants.InsertNewEmail;
-                        cmdEmailTable.Parameters.AddWithValue("@Email", TbNewEmail.Text);
-
-                        cmdEmailTable.ExecuteNonQuery();
-                        conn.Close();
-
-                        // Navigate to the Confirmation screen
-                        Frame Primary = _mainWindow.GetPrimaryFrame();
-                        Primary.Content = new PostRegistration();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred: " + ex.Message);
-                    }
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
             else
@@ -158,25 +156,28 @@ namespace Together_Culture_CRM
                     return;
                 }
 
-                using (MySqlConnection conn = _mainWindow.GetDatabaseConnection())
+                var sqlCommands = new SqlCommands();
+                string loginQuery = Constants.CheckLoginDetials;
+                var loginParams = new List<Tuple<string, object>>
                 {
-                    try
-                    {
-                        conn.Open();
-                        MySqlCommand cmdLogin = conn.CreateCommand();
-                        cmdLogin.CommandText = Constants.CheckLoginDetials;
-                        cmdLogin.Parameters.AddWithValue("@Email", TbEmail.Text);
-                        cmdLogin.Parameters.AddWithValue("@Password", PwField.Password);
+                    new Tuple<string, object>("@Email", TbEmail.Text),
+                    new Tuple<string, object>("@Password", PwField.Password)
+                };
 
-                        // Execute the SQL command and check if the user exists/credentials are correct
-                        MySqlDataReader reader = cmdLogin.ExecuteReader();
-                        if (reader.HasRows)
+                MySqlConnection conn = _mainWindow.GetDatabaseConnection();
+                try
+                {
+                    conn.Open();
+                    using (MySqlDataReader reader = (MySqlDataReader)sqlCommands.ExecuteSqlCommand(
+                        conn, loginQuery, loginParams, CommandType.ExecuteReader))
+                    {
+                        if (reader != null && reader.HasRows)
                         {
                             while (reader.Read())
                             {
+                                Console.WriteLine("Returned ID: " + reader.GetInt32(0));
                                 _mainWindow.SetLoggedInUserID(reader.GetInt32(0));
                             }
-                            conn.Close();
 
                             // Navigate to the HomeDashboard
                             Frame Primary = _mainWindow.GetPrimaryFrame();
@@ -188,16 +189,18 @@ namespace Together_Culture_CRM
                             LoginTopText.Foreground = Brushes.Red;
                             LoginTopText.Text = "Invalid email or password";
                             PwField.Clear();
-                            conn.Close();
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred: " + ex.Message);
-                        Console.WriteLine(ex.Message);
-                    }
                 }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             else
             {

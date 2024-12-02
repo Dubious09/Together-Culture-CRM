@@ -31,6 +31,8 @@ namespace Together_Culture_CRM
 
         internal static string CheckLoginDetials = "SELECT User_ID FROM email " +
                                                    "WHERE email.Email = @Email AND User_ID IN " +
-                                                   "(SELECT User_ID FROM users WHERE Password = @Password) ";
+                                                   "(SELECT User_ID FROM users WHERE Password = @Password)";
+
+        internal static string GetUserID = "SELECT FirstName, LastName FROM Users WHERE User_ID = @ID";
     }
 }

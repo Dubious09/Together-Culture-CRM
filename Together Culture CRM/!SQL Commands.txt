@@ -112,6 +112,7 @@ CREATE TABLE `Users` (
   `LastName` varchar(50),
   `MailingList` bool,
   `Image` MEDIUMBLOB,
+  `Student` bool,
   PRIMARY KEY (`User_ID`)
 );
 

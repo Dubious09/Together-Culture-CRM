@@ -31,28 +31,7 @@ namespace Together_Culture_CRM
             _mainWindow = Application.Current.MainWindow as MainWindow;
 
             // Retrieve the first and last name of the user from the database
-            using (MySqlConnection conn = _mainWindow.GetDatabaseConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand cmdGetUsersNames = conn.CreateCommand();
-                    cmdGetUsersNames.CommandText = Constants.GetUsersNames;
-                    cmdGetUsersNames.Parameters.AddWithValue("@ID", _mainWindow.GetUserID());
 
-                    MySqlDataReader reader = cmdGetUsersNames.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        
-                    }
-                    conn.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
         }
 
         string path;
@@ -77,6 +56,21 @@ namespace Together_Culture_CRM
                 // No image selected
                 MessageBox.Show("No image was selected");
             }
+        }
+
+        private void BtnDeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnDeleteData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
