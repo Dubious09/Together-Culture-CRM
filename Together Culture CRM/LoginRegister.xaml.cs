@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -121,6 +122,24 @@ namespace Together_Culture_CRM
 
                     sqlCommands.ExecuteSqlCommand(conn, insertEmailQuery, insertEmailParams, CommandType.ExecuteNonQuery);
 
+                    // Insert null values into the phonenumbers table
+                    string insertPhoneNumberQuery = Constants.InsertNullPhoneNumber;
+                    var insertPhoneNumberParams = new List<Tuple<string, object>>
+                    {
+                        new Tuple<string, object>("@UserID", userId)
+                    };
+
+                    sqlCommands.ExecuteSqlCommand(conn, insertPhoneNumberQuery, insertPhoneNumberParams, CommandType.ExecuteNonQuery);
+
+                    // Insert null values into the addresses table
+                    string insertAddressQuery = Constants.InsertNullAddress;
+                    var insertAddressParams = new List<Tuple<string, object>>
+                    {
+                        new Tuple<string, object>("@UserID", userId)
+                    };
+
+                    sqlCommands.ExecuteSqlCommand(conn, insertAddressQuery, insertAddressParams, CommandType.ExecuteNonQuery);
+
                     // Navigate to the Confirmation screen
                     Frame Primary = _mainWindow.GetPrimaryFrame();
                     Primary.Content = new PostRegistration();
@@ -177,6 +196,21 @@ namespace Together_Culture_CRM
                             {
                                 Console.WriteLine("Returned ID: " + reader.GetInt32(0));
                                 _mainWindow.SetLoggedInUserID(reader.GetInt32(0));
+
+                                // Retrieve and display the image
+                                if (reader["Image"] != DBNull.Value)
+                                {
+                                    byte[] imageBytes = (byte[])reader["Image"];
+                                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                                    {
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.StreamSource = ms;
+                                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                                        bitmap.EndInit();
+                                        _mainWindow.updateProfilePicture(bitmap);
+                                    }
+                                }
                             }
 
                             // Navigate to the HomeDashboard

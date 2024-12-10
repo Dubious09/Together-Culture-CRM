@@ -124,7 +124,7 @@
                                  Click="btnMe_Click">
                     </RadioButton>
 
-                    <Ellipse Name="HeaderProfileIcon"
+                    <Ellipse x:Name="HeaderProfileIcon"
                              Height="24"
                              Width="24"
                              Margin="10,0,0,0"
@@ -132,7 +132,7 @@
                              StrokeThickness="1">
                         
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="assets/img/profile-icon.png"/>
+                            <ImageBrush ImageSource="assets/img/profile-icon.png" x:Name="ProfileIcon"/>
                         </Ellipse.Fill>
                     </Ellipse>
                 </StackPanel>

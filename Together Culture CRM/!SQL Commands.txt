@@ -117,16 +117,16 @@ CREATE TABLE `Users` (
 );
 
 CREATE TABLE `SiteAccess` (
-  `Membership_ID` int AUTO_INCREMENT,
+  `Access_ID` int AUTO_INCREMENT,
   `User_ID` int,
   `CheckedIn` datetime,
   `CheckedOut` datetime,
   `SiteVisited` varchar(100),
-  PRIMARY KEY (`Membership_ID`),
+  PRIMARY KEY (`Access_ID`),
   FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
 );
 
-CREATE TABLE `Email` (
+CREATE TABLE `Emails` (
   `Email_ID` int AUTO_INCREMENT,
   `User_ID` int,
   `Name` varchar(100),
@@ -145,7 +145,7 @@ CREATE TABLE `Events` (
   PRIMARY KEY (`Event_ID`)
 );
 
-CREATE TABLE `Address` (
+CREATE TABLE `Addresses` (
   `Address_ID` int AUTO_INCREMENT,
   `User_ID` int,
   `Event_ID` int,
@@ -155,7 +155,7 @@ CREATE TABLE `Address` (
   `County` varchar(100),
   `Postcode` varchar(7),
   PRIMARY KEY (`Address_ID`),
-  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -163,7 +163,7 @@ CREATE TABLE `Orders` (
   `Order_ID` int AUTO_INCREMENT,
   `Event_ID` int,
   `User_ID` int,
-  `DateTime` int,
+  `DateTime` datetime,
   `Quantity` int,
   `Currency` varchar(4),
   `DiscountPerc` int,
@@ -178,12 +178,12 @@ CREATE TABLE `Tags` (
   PRIMARY KEY (`Tag_ID`)
 );
 
-CREATE TABLE `PhoneNumber` (
-  `PhoneNumber_ID` int AUTO_INCREMENT,
+CREATE TABLE `PhoneNumbers` (
+  `Phone_ID` int AUTO_INCREMENT,
   `User_ID` int,
   `Name` varchar(100),
-  `PhoneNumber` int,
-  PRIMARY KEY (`PhoneNumber_ID`),
+  `PNumber` int,
+  PRIMARY KEY (`Phone_ID`),
   FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -201,4 +201,26 @@ CREATE TABLE `TagsEventMapping` (
   PRIMARY KEY (`Tag_ID`, `Event_ID`),
   FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
   FOREIGN KEY (`Tag_ID`) REFERENCES `Tags`(`Tag_ID`)
+);
+
+CREATE TABLE `ActivityLogs` (
+  `Log_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `Date` datetime,
+  `Type` varchar(100),
+  `ChangeMade` varchar(200),
+  PRIMARY KEY (`Log_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
+);
+
+CREATE TABLE `Reviews` (
+  `Review_ID` int AUTO_INCREMENT,
+  `User_ID` int,
+  `Event_ID` int,
+  `Date` datetime,
+  `Review` varchar(2000),
+  `Rating` int,
+  PRIMARY KEY (`Review_ID`),
+  FOREIGN KEY (`Event_ID`) REFERENCES `Events`(`Event_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `Users`(`User_ID`)
 );

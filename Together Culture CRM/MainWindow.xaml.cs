@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,6 +108,25 @@ namespace Together_Culture_CRM
             else
             {
                 Primary.Content = new ProfileEditor();
+            }
+        }
+
+        public void updateProfilePicture(BitmapImage img)
+        {
+            // Update the profile picture
+            ProfileIcon.ImageSource = img;
+        }
+
+        public BitmapImage ConvertToBitmapImage(byte[] imageBytes)
+        {
+            using (MemoryStream ms = new MemoryStream(imageBytes))
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = ms;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                return bitmap;
             }
         }
     }
