@@ -1,3 +1,22 @@
 - Add constants class for the C# code
 - Ensure all SQL queries are stored in the constants class
 - Link the database to the C# code and finish 'user login'
+
+
+- Username:string
+- Password:string
+- Database:string
+- Server:string
+- InsertNewProfile:string
+- InsertNewEmail:string
+- CheckIfUniqueEmail:string
+- GetLastID:string
+- GetUsersNames:string
+- CheckLoginDetials:string
+- GetDetails:string
+- GetAddressDetails:string
+- InsertImage:string
+- GetImage:string
+- InsertNullPhoneNumber:string
+- InsertNullAddress:string
+- updateProfile:string

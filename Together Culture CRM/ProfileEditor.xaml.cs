@@ -25,8 +25,8 @@ namespace Together_Culture_CRM
 
         public ProfileEditor()
         {
-            InitializeComponent();
-            _mainWindow = Application.Current.MainWindow as MainWindow;
+            InitializeComponent(); // Initialize the page
+            _mainWindow = Application.Current.MainWindow as MainWindow; // Retrieve the MainWindow
 
             // Retrieve the user ID from the MainWindow
             userID = _mainWindow.GetUserID();
@@ -41,16 +41,16 @@ namespace Together_Culture_CRM
             }
         }
 
-        string path;
-        string fileName;
-        BitmapImage profilePicture;
-        bool imageUpdated = false;
+        string path; // The path of the image
+        string fileName; // The name of the image
+        BitmapImage profilePicture; // The profile picture
+        bool imageUpdated = false; // Flag to check if the image was updated
 
         // This method will open a file dialog to select an image
         private void BtnProfileEditOpenFileDialog_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg"; // Filter for image files
 
             bool? success = openFileDialog.ShowDialog();
             if (success == true)
@@ -58,9 +58,9 @@ namespace Together_Culture_CRM
                 path = openFileDialog.FileName;
                 fileName = openFileDialog.SafeFileName;
 
-                TbProfileEditFileDialog.Text = fileName;
-                ImgProfilePreview.ImageSource = new BitmapImage(new Uri(path));
-                imageUpdated = true;
+                TbProfileEditFileDialog.Text = fileName; // Display the file name
+                ImgProfilePreview.ImageSource = new BitmapImage(new Uri(path)); // Display the image
+                imageUpdated = true; // Set the flag to true
             }
             else
             {
@@ -69,10 +69,11 @@ namespace Together_Culture_CRM
             }
         }
 
+        // This method will delete the user's account
         private void BtnDeleteAccount_Click(object sender, RoutedEventArgs e)
         {
             var sqlCommands = new SqlCommands();
-            MySqlConnection conn = _mainWindow.GetDatabaseConnection();
+            MySqlConnection conn = _mainWindow.GetDatabaseConnection(); // Get the database connection
 
             try
             {
@@ -84,7 +85,7 @@ namespace Together_Culture_CRM
                 string deletePhoneNumbersQuery = "DELETE FROM phonenumbers WHERE User_ID = @UserID";
                 string deleteUserQuery = "DELETE FROM users WHERE User_ID = @UserID";
 
-                var parameters = new List<Tuple<string, object>>
+                var parameters = new List<Tuple<string, object>> // Parameters for the queries
                 {
                     new Tuple<string, object>("@UserID", userID)
                 };
@@ -115,14 +116,16 @@ namespace Together_Culture_CRM
             }
         }
 
+        // This method will delete the user's data
         private void BtnDeleteData_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        // This method will save the changes to the user's profile
         private void BtnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (TbAddressPhoneNumber.Text != TbAddressPhoneNumberOne.Text)
+            if (TbAddressPhoneNumber.Text != TbAddressPhoneNumberOne.Text) // Check if the phone numbers match
             {
                 PhoneNumberLabel.Foreground = Brushes.Red;
                 ConfirmPhoneNumberLabel.Foreground = Brushes.Red;
@@ -130,12 +133,12 @@ namespace Together_Culture_CRM
             }
             else
             {
-                Brush brush = (Brush)(new BrushConverter().ConvertFrom("#FDF6EC"));
+                Brush brush = (Brush)(new BrushConverter().ConvertFrom("#FDF6EC")); // Set the text colour to white
                 PhoneNumberLabel.Foreground = brush;
                 ConfirmPhoneNumberLabel.Foreground = brush;
             }
 
-            if (TbAddressPasswordOne.Password != TbAddressPasswordTwo.Password)
+            if (TbAddressPasswordOne.Password != TbAddressPasswordTwo.Password) // Check if the passwords match
             {
                 PasswordLabel.Foreground = Brushes.Red;
                 ConfirmPasswordLabel.Foreground = Brushes.Red;
@@ -143,7 +146,7 @@ namespace Together_Culture_CRM
             }
             else
             {
-                Brush brush = (Brush)(new BrushConverter().ConvertFrom("#FDF6EC"));
+                Brush brush = (Brush)(new BrushConverter().ConvertFrom("#FDF6EC")); // Set the text colour to white
                 PasswordLabel.Foreground = brush;
                 ConfirmPasswordLabel.Foreground = brush;
             }
@@ -161,9 +164,9 @@ namespace Together_Culture_CRM
             {
                 conn.Open();
 
-                string updateProfileQuery = Constants.updateProfile;
+                string updateProfileQuery = Constants.updateProfile; // Update the user's profile
 
-                var parameters = new List<Tuple<string, object>>
+                var parameters = new List<Tuple<string, object>> // Parameters for the query
                 {
                     new Tuple<string, object>("@FirstName", TbFirstName.Text),
                     new Tuple<string, object>("@LastName", TbLastName.Text),
@@ -197,7 +200,7 @@ namespace Together_Culture_CRM
         // This method will insert the image into the database
         private void InsertImage()
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path)) // Check if an image was selected
             {
                 MessageBox.Show("No image selected.");
                 return;
@@ -205,11 +208,11 @@ namespace Together_Culture_CRM
 
             // Convert the image to a byte array
             byte[] image = null;
-            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read)) // Open the file stream
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
-                    image = reader.ReadBytes((int)stream.Length);
+                    image = reader.ReadBytes((int)stream.Length); // Read the bytes of the image
                 }
             }
 
@@ -224,7 +227,7 @@ namespace Together_Culture_CRM
 
                 string insertImageQuery = Constants.InsertImage;
 
-                var parameters = new List<Tuple<string, object>>
+                var parameters = new List<Tuple<string, object>> // Parameters for the query
                 {
                     new Tuple<string, object>("@Image", image),
                     new Tuple<string, object>("@UserID", userID)
@@ -247,7 +250,7 @@ namespace Together_Culture_CRM
         private void LoadUserProfile()
         {
             var sqlCommands = new SqlCommands();
-            MySqlConnection conn = _mainWindow.GetDatabaseConnection();
+            MySqlConnection conn = _mainWindow.GetDatabaseConnection(); // Get the database connection
 
             try
             {
@@ -256,7 +259,7 @@ namespace Together_Culture_CRM
                 // Get the user details from multiple tables at once using a JOIN query
                 string getDetailsQuery = Constants.GetDetails;
 
-                var parameters = new List<Tuple<string, object>>
+                var parameters = new List<Tuple<string, object>> // Parameters for the query
                 {
                     new Tuple<string, object>("@UserID", userID)
                 };
@@ -285,15 +288,7 @@ namespace Together_Culture_CRM
                             if (reader["Image"] != DBNull.Value)
                             {
                                 byte[] imageBytes = (byte[])reader["Image"];
-                                using (MemoryStream ms = new MemoryStream(imageBytes))
-                                {
-                                    BitmapImage bitmap = new BitmapImage();
-                                    bitmap.BeginInit();
-                                    bitmap.StreamSource = ms;
-                                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                    bitmap.EndInit();
-                                    ImgProfilePreview.ImageSource = bitmap;
-                                }
+                                ImgProfilePreview.ImageSource = _mainWindow.ConvertToBitmapImage(imageBytes);
                             }
                         }
                     }

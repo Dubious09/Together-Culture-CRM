@@ -19,9 +19,6 @@ using System.Windows.Shapes;
 
 namespace Together_Culture_CRM
 {
-    /// <summary>
-    /// Interaction logic for LoginRegister.xaml
-    /// </summary>
     public partial class LoginRegister : Page
     {
         // Instance of the MainWindow
@@ -167,7 +164,7 @@ namespace Together_Culture_CRM
         {
             if (_mainWindow != null)
             {
-                if (string.IsNullOrEmpty(TbEmail.Text) || string.IsNullOrEmpty(PwField.Password))
+                if (string.IsNullOrEmpty(TbEmail.Text) || string.IsNullOrEmpty(PwField.Password)) // Check if the fields are empty
                 {
                     // One or more fields are empty
                     LoginTopText.Foreground = Brushes.Red;
@@ -177,7 +174,7 @@ namespace Together_Culture_CRM
 
                 var sqlCommands = new SqlCommands();
                 string loginQuery = Constants.CheckLoginDetials;
-                var loginParams = new List<Tuple<string, object>>
+                var loginParams = new List<Tuple<string, object>> // Parameters for the query
                 {
                     new Tuple<string, object>("@Email", TbEmail.Text),
                     new Tuple<string, object>("@Password", PwField.Password)
@@ -190,25 +187,25 @@ namespace Together_Culture_CRM
                     using (MySqlDataReader reader = (MySqlDataReader)sqlCommands.ExecuteSqlCommand(
                         conn, loginQuery, loginParams, CommandType.ExecuteReader))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null && reader.HasRows) // If the query returned a row
                         {
                             while (reader.Read())
                             {
-                                Console.WriteLine("Returned ID: " + reader.GetInt32(0));
-                                _mainWindow.SetLoggedInUserID(reader.GetInt32(0));
+                                Console.WriteLine("Returned ID: " + reader.GetInt32(0)); // Print the ID of the user
+                                _mainWindow.SetLoggedInUserID(reader.GetInt32(0)); // Set the logged in user ID
 
                                 // Retrieve and display the image
                                 if (reader["Image"] != DBNull.Value)
                                 {
                                     byte[] imageBytes = (byte[])reader["Image"];
-                                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                                    using (MemoryStream ms = new MemoryStream(imageBytes)) // Convert the byte array to a bitmap
                                     {
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.StreamSource = ms;
                                         bitmap.CacheOption = BitmapCacheOption.OnLoad;
                                         bitmap.EndInit();
-                                        _mainWindow.updateProfilePicture(bitmap);
+                                        _mainWindow.updateProfilePicture(bitmap); // Update the profile picture
                                     }
                                 }
                             }

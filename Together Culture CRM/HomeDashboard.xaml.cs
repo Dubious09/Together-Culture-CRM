@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Together_Culture_CRM
 {
-    /// <summary>
-    /// Interaction logic for HomeDashboard.xaml
-    /// </summary>
     public partial class HomeDashboard : Page
     {
         public MainWindow _mainWindow;
@@ -36,8 +33,8 @@ namespace Together_Culture_CRM
 
         private void BtnLoginRegister_Click(object sender, RoutedEventArgs e)
         {
-            Frame Primary = _mainWindow.GetPrimaryFrame();
-            Primary.Content = new LoginRegister();
+            Frame Primary = _mainWindow.GetPrimaryFrame(); // Get the primary frame
+            Primary.Content = new LoginRegister(); // Set the primary frame to the login/register page
         }
     }
 }

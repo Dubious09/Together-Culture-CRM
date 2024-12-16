@@ -19,9 +19,6 @@ using MySql.Data.MySqlClient;
 
 namespace Together_Culture_CRM
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         MySqlConnection connection;
@@ -29,49 +26,50 @@ namespace Together_Culture_CRM
 
         public MainWindow()
         {
-            InitializeComponent();
-            mysqlConnection();
+            InitializeComponent(); // Load the main window
+            mysqlConnection(); // Connect to the database
         }
 
-        public void SetLoggedInUserID(int id) => loggedInUserID = id;
-
-        public int GetUserID() => loggedInUserID;
-
+        // Connect to the database
         public void mysqlConnection()
         {
-            string connStr = $"server={Constants.Server};user={Constants.Username};database={Constants.Database};password={Constants.Password}";
+            string connStr = $"server={Constants.Server};user={Constants.Username};database={Constants.Database};password={Constants.Password}"; // Set the connection string
             MySqlConnection conn = new MySqlConnection(connStr);
             try
             {
-                Console.WriteLine("Connecting to MySQL...");
-                //conn.Open();
-                connection = conn;
-                // Perform database operations
+                connection = conn; // Set the connection
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-            //conn.Close();
             Console.WriteLine("Done.");
         }
 
+        public void SetLoggedInUserID(int id) => loggedInUserID = id; // Set the logged in user ID
+
+        public int GetUserID() => loggedInUserID;
+
+
         public MySqlConnection GetDatabaseConnection()
         {
-            return new MySqlConnection(connection.ConnectionString);
+            return new MySqlConnection(connection.ConnectionString); // Return the database connection
         }
 
         public Frame GetPrimaryFrame() => Primary;
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove(); // Allow the window to be dragged
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(); // Close the application
+        }
 
         private void BtnMaximise_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized)
-                WindowState = WindowState.Normal;
-            else WindowState = WindowState.Maximized;
+            if (WindowState == WindowState.Maximized) // Maximise the window
+                WindowState = WindowState.Normal; // If the window is already maximised, normalise it
+            else WindowState = WindowState.Maximized; // Otherwise, maximise it
         }
 
         private void BtnMinimise_Click(object sender, RoutedEventArgs e)
@@ -94,9 +92,9 @@ namespace Together_Culture_CRM
         private void BtnDashboard_Click(object sender, RoutedEventArgs e)
         {
             Primary.Content = new HomeDashboard();
-            btnEvents.IsChecked = false;
-            btnCalander.IsChecked = false;
-            btnMe.IsChecked = false;
+            btnEvents.IsChecked = false; // Uncheck the events button
+            btnCalander.IsChecked = false; // Uncheck the calendar button
+            btnMe.IsChecked = false; // Uncheck the me button
         }
 
         private void btnMe_Click(object sender, RoutedEventArgs e)
@@ -111,13 +109,15 @@ namespace Together_Culture_CRM
             }
         }
 
+        // Update the profile picture
         public void updateProfilePicture(BitmapImage img)
         {
             // Update the profile picture
             ProfileIcon.ImageSource = img;
         }
 
-        public BitmapImage ConvertToBitmapImage(byte[] imageBytes)
+        
+        public BitmapImage ConvertToBitmapImage(byte[] imageBytes) // Convert an image to a bitmap image
         {
             using (MemoryStream ms = new MemoryStream(imageBytes))
             {

@@ -91,7 +91,6 @@
                             Margin="5,10,10,10">
 
                         <Button x:Name="BtnLoginRegister"
-                                Style="{StaticResource RemoveMouseHover}"
                                 Click="BtnLoginRegister_Click"
                                 Content="Login / Register"
                                 FontFamily="{StaticResource BoldFont}"

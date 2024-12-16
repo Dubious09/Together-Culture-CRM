@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xceed.Wpf.AvalonDock.Themes;
-
-namespace Together_Culture_CRM
+﻿namespace Together_Culture_CRM
 {
     internal class Constants
     {
@@ -55,7 +48,8 @@ namespace Together_Culture_CRM
         internal static string InsertImage = @"UPDATE Users SET Image = @Image
                                                WHERE User_ID = @UserID";
 
-        internal static string GetImage = "SELECT Image FROM Users WHERE User_ID = @UserID";
+        internal static string GetImage = @"SELECT Image FROM Users
+                                            WHERE User_ID = @UserID";
 
         internal static string InsertNullPhoneNumber = @"INSERT INTO phonenumbers (User_ID, PNumber)
                                                          VALUES (@UserID, NULL)";
